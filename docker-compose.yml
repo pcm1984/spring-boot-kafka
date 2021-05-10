@@ -1,0 +1,67 @@
+version : "3.5"
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    restart: unless-stopped
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      TZ: "${TZ-Europe/London}"
+    mem_limit: 630m
+    mem_reservation: 128M 
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    restart: unless-stopped
+    depends_on:
+      - zookeeper
+    ports:
+      - "29092:29092"
+    mem_limit: 630m
+    mem_reservation: 128M
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
+      TZ: "${TZ-Europe/London}"
+  write-to-kafka:
+    image: docker.io/library/write-to-kafka:0.0.1
+    container_name: write-to-kafka
+    mem_limit: 630m
+    mem_reservation: 128M
+    ports:
+      - "8081:8081"
+
+  kafka-to-mongodb:
+    image: docker.io/library/kafka-to-mongodb:0.0.1
+    container_name: kafka-to-mongodb
+    mem_limit: 630m
+    mem_reservation: 128M
+    ports:
+      - "8082:8082"
+
+  spring-boot-config-server:
+    image: docker.io/library/spring-boot-config-server:0.0.1
+    container_name: spring-boot-config-server
+    mem_limit: 630m
+    mem_reservation: 128M
+    ports:
+      - "8888:8888"
+
+  mongo:
+    image: mongo
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=devdb
+    - MONGO_INITDB_ROOT_PASSWORD=devdb123
+    - MONGO_DATABASE=dev
+    volumes:
+      - mongodb:/data/db
+    restart: always
+    ports:
+      - 27017:27017
+volumes:
+ mongodb:
+   external: false

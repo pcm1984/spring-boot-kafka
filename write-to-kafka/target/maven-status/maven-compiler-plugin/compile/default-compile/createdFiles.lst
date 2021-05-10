@@ -1,0 +1,5 @@
+com/pankaj/mulay/writer/config/PropertiesConfig.class
+com/pankaj/mulay/writer/kafkamsg/MessageSender.class
+com/pankaj/mulay/writer/controller/WriterController.class
+com/pankaj/mulay/writer/model/Data.class
+com/pankaj/mulay/writer/WriterApplication.class
