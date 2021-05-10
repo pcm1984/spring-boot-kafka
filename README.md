@@ -84,7 +84,7 @@ For this you may need to create another docker compose file having only kafka an
 
 ## Whats next?
 
-1.Write the same microservices using WebFlux and Reactor library : Leaving this out for now because of the time constraints and other commitments I had to stick to. But definitely ssomething I would like to explore.
+1. Write the same microservices using WebFlux and Reactor library : Leaving this out for now because of the time constraints and other commitments I had to stick to. But definitely ssomething I would like to explore.
 2. Add swagger to the project for easy API visualization and testing.
 3. Add Unit tests : Ideally this is something that must be done as part of the development. But the goal being learning and demonstrating the integration of kafka, mongo and the config servers I am leaving this for the next time. 
 
