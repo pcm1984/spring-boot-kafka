@@ -30,7 +30,13 @@ Uses Apache.kafka library KafkaProducer to send the Json received from user.
 #### API Endpoint:
 
 POST http://localhost:8081/kafka/data
-*Any Json file* 
+
+Inpug Json:
+```
+{
+  "key":"value"
+}
+``` 
 
 #### Note
 >To run write-to-kafka in IDE, please change **kafka.server=localhost:29092** in  **application.properties**. 
@@ -84,6 +90,6 @@ For this you may need to create another docker compose file having only kafka an
 
 ## Important Note
 
-My current laptop did not have the ability to run docker. Hence the docker commands and the compose files are not tested locally. I have done my best to still make sure that those are correct to the best of my knowledge. 
+I have tried to test the compose file on my personal free AWS account but I was facing some memory related issues which I could not fix in time. These might be related to the system configuration available or there might be some twicks which will fix them. But as of now those remain unsolved.
 
 Thanks a lot 
